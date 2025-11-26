@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Euclidean Models for Fraud Detection - Supplementary Materials</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        header p { opacity: 0.9; font-size: 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .info-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-box h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        .table-section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .table-section h2 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        .table-section h3 {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem; }
+        th, td { padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); }
+        th { background-color: var(--primary-color); color: white; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e9ecef; }
+        .method-cell { text-align: left; font-weight: 500; }
+        .graph-enhanced { background-color: #e8f4fd !important; }
+        .graph-enhanced:hover { background-color: #d0e8f9 !important; }
+        .highlight { color: var(--secondary-color); font-weight: 600; }
+        .note { font-size: 0.85rem; color: #666; margin-top: 0.5rem; font-style: italic; }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 2rem;
+        }
+        footer a { color: #a8d8ff; }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 0.5rem 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Non-Euclidean Models for Fraud Detection</h1>
+        <p>Supplementary Materials - Performance Metrics Tables</p>
+    </header>
+    <div class="container">
+        <div class="info-box">
+            <h3>About This Page</h3>
+            <p>This page contains supplementary tables for the paper "Non-Euclidean Models for Fraud Detection".
+               Methods with subscript <span class="highlight">G</span> indicate graph-enhanced versions using GCN embeddings.
+               Highlighted rows show graph-enhanced models for easy comparison.</p>
+        </div>
+
+        <div class="table-section">
+            <h2>A1. Performance Metrics Across Different Dataset Configurations</h2>
+            <p class="note">Tables A1.1 - A1.6 show performance metrics on train2-train7 datasets with different fraud ratios.</p>
+
+            <h3>Table A1.1: Performance Metrics on train2 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9952</td><td>0.5531</td><td>0.8679</td><td>0.6756</td><td>0.9954</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9968</td><td>0.6528</td><td>0.9489</td><td>0.7735</td><td>0.9993</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9954</td><td>0.5639</td><td>0.8406</td><td>0.6750</td><td>0.9903</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9971</td><td>0.6769</td><td>0.9284</td><td>0.7830</td><td>0.9989</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9959</td><td>0.6054</td><td>0.8356</td><td>0.7021</td><td>0.9907</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9947</td><td>0.5193</td><td>0.9167</td><td>0.6631</td><td>0.9979</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9946</td><td>0.5188</td><td>0.8207</td><td>0.6357</td><td>0.9933</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9972</td><td>0.6840</td><td>0.9434</td><td>0.7930</td><td>0.9992</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9957</td><td>0.5966</td><td>0.7885</td><td>0.6793</td><td>0.9772</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9966</td><td>0.6464</td><td>0.9095</td><td>0.7557</td><td>0.9978</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9951</td><td>0.5477</td><td>0.8168</td><td>0.6557</td><td>0.9899</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9942</td><td>0.4975</td><td>0.9306</td><td>0.6484</td><td>0.9885</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.9841</td><td>0.0873</td><td>0.1877</td><td>0.1192</td><td>0.7354</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.9868</td><td>0.1126</td><td>0.1899</td><td>0.1414</td><td>0.7426</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Table A1.2: Performance Metrics on train3 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9902</td><td>0.3625</td><td>0.9328</td><td>0.5221</td><td>0.9949</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9952</td><td>0.5455</td><td>0.9783</td><td>0.7005</td><td>0.9994</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9930</td><td>0.4453</td><td>0.8745</td><td>0.5901</td><td>0.9931</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9956</td><td>0.5707</td><td>0.9617</td><td>0.7163</td><td>0.9992</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9945</td><td>0.5097</td><td>0.8629</td><td>0.6408</td><td>0.9917</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9924</td><td>0.4262</td><td>0.9589</td><td>0.5901</td><td>0.9988</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9934</td><td>0.4609</td><td>0.9095</td><td>0.6118</td><td>0.9959</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9960</td><td>0.5914</td><td>0.9772</td><td>0.7369</td><td>0.9994</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9938</td><td>0.4776</td><td>0.8684</td><td>0.6162</td><td>0.9940</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9959</td><td>0.5882</td><td>0.9706</td><td>0.7325</td><td>0.9991</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9940</td><td>0.4839</td><td>0.8318</td><td>0.6118</td><td>0.9731</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9949</td><td>0.5298</td><td>0.9622</td><td>0.6834</td><td>0.9978</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.9603</td><td>0.0470</td><td>0.3082</td><td>0.0816</td><td>0.7838</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.9613</td><td>0.0485</td><td>0.3087</td><td>0.0838</td><td>0.7855</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Table A1.3: Performance Metrics on train4 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9811</td><td>0.2235</td><td>0.9289</td><td>0.3603</td><td>0.9924</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9916</td><td>0.4055</td><td>0.9872</td><td>0.5748</td><td>0.9991</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9861</td><td>0.2782</td><td>0.8962</td><td>0.4246</td><td>0.9933</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9910</td><td>0.3869</td><td>0.9778</td><td>0.5545</td><td>0.9989</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9910</td><td>0.3780</td><td>0.8873</td><td>0.5302</td><td>0.9918</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9871</td><td>0.3052</td><td>0.9783</td><td>0.4653</td><td>0.9986</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9869</td><td>0.2950</td><td>0.9317</td><td>0.4481</td><td>0.9954</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9935</td><td>0.4690</td><td>0.9906</td><td>0.6366</td><td>0.9995</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9901</td><td>0.3620</td><td>0.9528</td><td>0.5247</td><td>0.9982</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9943</td><td>0.5027</td><td>0.9822</td><td>0.6650</td><td>0.9992</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9865</td><td>0.2851</td><td>0.9062</td><td>0.4338</td><td>0.9950</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9947</td><td>0.5217</td><td>0.9822</td><td>0.6814</td><td>0.9994</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.9016</td><td>0.0295</td><td>0.5069</td><td>0.0557</td><td>0.8111</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.9017</td><td>0.0295</td><td>0.5069</td><td>0.0558</td><td>0.8114</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Table A1.4: Performance Metrics on train5 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9707</td><td>0.1576</td><td>0.9478</td><td>0.2703</td><td>0.9926</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9853</td><td>0.2780</td><td>0.9839</td><td>0.4335</td><td>0.9980</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9780</td><td>0.1976</td><td>0.9267</td><td>0.3258</td><td>0.9935</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9853</td><td>0.2782</td><td>0.9833</td><td>0.4337</td><td>0.9987</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9860</td><td>0.2792</td><td>0.9089</td><td>0.4272</td><td>0.9925</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9773</td><td>0.1993</td><td>0.9839</td><td>0.3314</td><td>0.9981</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9748</td><td>0.1783</td><td>0.9428</td><td>0.2999</td><td>0.9950</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9892</td><td>0.3455</td><td>0.9911</td><td>0.5123</td><td>0.9991</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9849</td><td>0.2719</td><td>0.9739</td><td>0.4251</td><td>0.9983</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9917</td><td>0.4086</td><td>0.9883</td><td>0.5782</td><td>0.9993</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9768</td><td>0.1900</td><td>0.9334</td><td>0.3158</td><td>0.9947</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9924</td><td>0.4276</td><td>0.9895</td><td>0.5972</td><td>0.9994</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.8380</td><td>0.0221</td><td>0.6319</td><td>0.0427</td><td>0.8115</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.8404</td><td>0.0227</td><td>0.6385</td><td>0.0438</td><td>0.8163</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Table A1.5: Performance Metrics on train6 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9467</td><td>0.0924</td><td>0.9417</td><td>0.1682</td><td>0.9883</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9806</td><td>0.2266</td><td>0.9928</td><td>0.3690</td><td>0.9975</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9692</td><td>0.1506</td><td>0.9434</td><td>0.2598</td><td>0.9937</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9795</td><td>0.2169</td><td>0.9883</td><td>0.3557</td><td>0.9986</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9797</td><td>0.2101</td><td>0.9206</td><td>0.3422</td><td>0.9926</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9715</td><td>0.1658</td><td>0.9878</td><td>0.2839</td><td>0.9979</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9711</td><td>0.1600</td><td>0.9539</td><td>0.2741</td><td>0.9942</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9870</td><td>0.3045</td><td>0.9956</td><td>0.4664</td><td>0.9991</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9778</td><td>0.2023</td><td>0.9772</td><td>0.3351</td><td>0.9977</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9890</td><td>0.3410</td><td>0.9911</td><td>0.5074</td><td>0.9992</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9677</td><td>0.1459</td><td>0.9567</td><td>0.2532</td><td>0.9946</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9888</td><td>0.3372</td><td>0.9906</td><td>0.5032</td><td>0.9992</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.7703</td><td>0.0176</td><td>0.7152</td><td>0.0344</td><td>0.8047</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.7709</td><td>0.0177</td><td>0.7174</td><td>0.0346</td><td>0.8069</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Table A1.6: Performance Metrics on train7 Dataset</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">NeuralNet</td><td>0.9360</td><td>0.0788</td><td>0.9528</td><td>0.1456</td><td>0.9890</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">NeuralNet<sub>G</sub></td><td>0.9769</td><td>0.1976</td><td>0.9933</td><td>0.3297</td><td>0.9969</td></tr>
+                    <tr><td class="method-cell">RandomForest</td><td>0.9587</td><td>0.1179</td><td>0.9572</td><td>0.2099</td><td>0.9931</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">RandomForest<sub>G</sub></td><td>0.9735</td><td>0.1766</td><td>0.9895</td><td>0.2997</td><td>0.9982</td></tr>
+                    <tr><td class="method-cell">ExtraTrees</td><td>0.9678</td><td>0.1449</td><td>0.9445</td><td>0.2513</td><td>0.9928</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ExtraTrees<sub>G</sub></td><td>0.9649</td><td>0.1390</td><td>0.9895</td><td>0.2438</td><td>0.9977</td></tr>
+                    <tr><td class="method-cell">LightGBM</td><td>0.9581</td><td>0.1167</td><td>0.9622</td><td>0.2081</td><td>0.9936</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">LightGBM<sub>G</sub></td><td>0.9804</td><td>0.2255</td><td>0.9972</td><td>0.3678</td><td>0.9987</td></tr>
+                    <tr><td class="method-cell">CatBoost</td><td>0.9691</td><td>0.1544</td><td>0.9828</td><td>0.2668</td><td>0.9972</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">CatBoost<sub>G</sub></td><td>0.9875</td><td>0.3144</td><td>0.9956</td><td>0.4779</td><td>0.9994</td></tr>
+                    <tr><td class="method-cell">XGBoost</td><td>0.9575</td><td>0.1161</td><td>0.9706</td><td>0.2075</td><td>0.9943</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">XGBoost<sub>G</sub></td><td>0.9840</td><td>0.2618</td><td>0.9895</td><td>0.4141</td><td>0.9989</td></tr>
+                    <tr><td class="method-cell">KNeighbors</td><td>0.6895</td><td>0.0143</td><td>0.7846</td><td>0.0281</td><td>0.7971</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNeighbors<sub>G</sub></td><td>0.6899</td><td>0.0144</td><td>0.7857</td><td>0.0282</td><td>0.7985</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <h2>A2. PyOD Outlier Detection Methods with Graph Enhancement</h2>
+            <p class="note">Results comparing traditional PyOD outlier detection methods with their graph-enhanced versions on train1 dataset.</p>
+
+            <h3>Table A2.1: Results of PyOD Experiment</h3>
+            <table>
+                <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
+                <tbody>
+                    <tr><td class="method-cell">IForest</td><td>0.9928</td><td>0.3739</td><td>0.3737</td><td>0.3738</td><td>0.6837</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">IForest<sub>G</sub></td><td>0.9943</td><td>0.5033</td><td>0.5097</td><td>0.5065</td><td>0.7534</td></tr>
+                    <tr><td class="method-cell">KNN</td><td>0.9921</td><td>0.3092</td><td>0.3009</td><td>0.3050</td><td>0.6485</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">KNN<sub>G</sub></td><td>0.9941</td><td>0.4873</td><td>0.4881</td><td>0.4877</td><td>0.7426</td></tr>
+                    <tr><td class="method-cell">PCA</td><td>0.9928</td><td>0.3749</td><td>0.3770</td><td>0.3760</td><td>0.6867</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">PCA<sub>G</sub></td><td>0.9934</td><td>0.4255</td><td>0.4359</td><td>0.4306</td><td>0.7162</td></tr>
+                    <tr><td class="method-cell">ROD</td><td>0.9826</td><td>0.0005</td><td>0.0011</td><td>0.0007</td><td>0.4947</td></tr>
+                    <tr class="graph-enhanced"><td class="method-cell">ROD<sub>G</sub></td><td>0.9941</td><td>0.4860</td><td>0.5014</td><td>0.4936</td><td>0.7492</td></tr>
+                </tbody>
+            </table>
+            <p class="note">IForest: Isolation Forest, KNN: K-Nearest Neighbors, PCA: Principal Component Analysis, ROD: Rotation-based Outlier Detection</p>
+        </div>
+    </div>
+    <footer>
+        <p>Supplementary Materials for "Non-Euclidean Models for Fraud Detection"</p>
+        <p>For questions, please contact the authors or visit the <a href="https://github.com/guebin/non-euclidean-models-for-fraud-detection">GitHub Repository</a></p>
+    </footer>
+</body>
+</html>
