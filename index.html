@@ -28,7 +28,7 @@
         }
         header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         header p { opacity: 0.9; font-size: 1rem; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 3rem; text-align: left; }
         .info-box {
             background: var(--card-bg);
             border-left: 4px solid var(--secondary-color);
@@ -96,8 +96,18 @@
         </div>
 
         <div class="table-section">
-            <h2>A1. Performance Metrics Across Different Dataset Configurations</h2>
-            <p class="note">Tables A1.1 - A1.6 show performance metrics on undersampled datasets with fraud ratios of 5%, 10%, 20%, 30%, 40%, and 50%, respectively.</p>
+            <h2>A1. Undersampling Experiments</h2>
+            <p class="note">We evaluated the robustness of our proposed method across various undersampling ratios while keeping the test set unchanged.</p>
+
+            <h3>Figure A1: Prediction Probabilities Across Different Fraud Ratios</h3>
+            <div style="margin: 1.5rem 0;">
+                <img src="tr_amt2.pdf" alt="Figure A1: Prediction probabilities for transactions under $80" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                    Prediction probabilities for transactions under $80 across different undersampling ratios.
+                    Blue line: baseline model using only X. Orange line: proposed model using X̃.
+                    Panels A–F correspond to fraud ratios of 5%, 10%, 20%, 30%, 40%, and 50%, respectively.
+                </p>
+            </div>
 
             <h3>Table A1.1: Performance Metrics (Fraud Ratio: 5%)</h3>
             <table>
