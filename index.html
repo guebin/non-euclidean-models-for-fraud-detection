@@ -75,10 +75,64 @@
             margin-top: 2rem;
         }
         footer a { color: #a8d8ff; }
+
+        /* Model selector styles */
+        .model-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem 0;
+            padding: 1rem;
+            background: #f0f4f8;
+            border-radius: 8px;
+        }
+        .model-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--secondary-color);
+            background: white;
+            color: var(--secondary-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .model-btn:hover {
+            background: #e8f4fd;
+        }
+        .model-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+        .figure-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .figure-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        .figure-item h4 {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .figure-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             table { font-size: 0.75rem; }
             th, td { padding: 0.5rem 0.25rem; }
+            .model-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -99,39 +153,19 @@
             <h2>Prediction Probability Distributions</h2>
             <p class="note">Comparison of predicted fraud probabilities for actual fraud cases (y=1) across different undersampling ratios. Top row: histograms; bottom row: CDFs.</p>
 
-            <h3>Original Fraud Ratio (0.57%)</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_0_57pct.png" alt="Prediction probabilities - Original ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+            <p style="margin-top: 1rem; font-weight: 600;">Select Model Type:</p>
+            <div class="model-selector">
+                <button class="model-btn active" data-model="ensemble">Ensemble (Best)</button>
+                <button class="model-btn" data-model="NN_TORCH">NeuralNet</button>
+                <button class="model-btn" data-model="RF">RandomForest</button>
+                <button class="model-btn" data-model="XT">ExtraTrees</button>
+                <button class="model-btn" data-model="GBM">LightGBM</button>
+                <button class="model-btn" data-model="CAT">CatBoost</button>
+                <button class="model-btn" data-model="XGB">XGBoost</button>
             </div>
 
-            <h3>Fraud Ratio: 5%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_5pct.png" alt="Prediction probabilities - 5% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-
-            <h3>Fraud Ratio: 10%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_10pct.png" alt="Prediction probabilities - 10% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-
-            <h3>Fraud Ratio: 20%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_20pct.png" alt="Prediction probabilities - 20% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-
-            <h3>Fraud Ratio: 30%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_30pct.png" alt="Prediction probabilities - 30% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-
-            <h3>Fraud Ratio: 40%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_40pct.png" alt="Prediction probabilities - 40% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-
-            <h3>Fraud Ratio: 50%</h3>
-            <div style="margin: 1.5rem 0;">
-                <img src="figures/fig_combined_50pct.png" alt="Prediction probabilities - 50% fraud ratio" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+            <div class="figure-grid" id="figure-container">
+                <!-- Figures will be populated by JavaScript -->
             </div>
         </div>
 
@@ -281,5 +315,64 @@
         <p>Supplementary Materials for "Non-Euclidean Models for Fraud Detection"</p>
         <p>For questions, please contact the authors or visit the <a href="https://github.com/guebin/non-euclidean-models-for-fraud-detection">GitHub Repository</a></p>
     </footer>
+
+    <script>
+        const fraudRatios = [
+            { label: 'Original Fraud Ratio (0.57%)', file: '0_57pct' },
+            { label: 'Fraud Ratio: 5%', file: '5pct' },
+            { label: 'Fraud Ratio: 10%', file: '10pct' },
+            { label: 'Fraud Ratio: 20%', file: '20pct' },
+            { label: 'Fraud Ratio: 30%', file: '30pct' },
+            { label: 'Fraud Ratio: 40%', file: '40pct' },
+            { label: 'Fraud Ratio: 50%', file: '50pct' }
+        ];
+
+        const modelNames = {
+            'ensemble': 'Ensemble (Best Quality)',
+            'NN_TORCH': 'NeuralNet',
+            'RF': 'RandomForest',
+            'XT': 'ExtraTrees',
+            'GBM': 'LightGBM',
+            'CAT': 'CatBoost',
+            'XGB': 'XGBoost'
+        };
+
+        function getImagePath(model, ratio) {
+            if (model === 'ensemble') {
+                return `figures/fig_combined_${ratio}.png`;
+            } else {
+                return `figures/by_model/fig_${model}_${ratio}.png`;
+            }
+        }
+
+        function renderFigures(model) {
+            const container = document.getElementById('figure-container');
+            container.innerHTML = '';
+
+            fraudRatios.forEach(ratio => {
+                const figureItem = document.createElement('div');
+                figureItem.className = 'figure-item';
+                figureItem.innerHTML = `
+                    <h4>${ratio.label} - ${modelNames[model]}</h4>
+                    <img src="${getImagePath(model, ratio.file)}"
+                         alt="Prediction probabilities - ${ratio.label} - ${modelNames[model]}"
+                         onerror="this.parentElement.innerHTML='<p style=\\'padding:2rem;color:#999;\\'>Figure not available</p>'">
+                `;
+                container.appendChild(figureItem);
+            });
+        }
+
+        // Initialize with ensemble model
+        renderFigures('ensemble');
+
+        // Add click handlers to model buttons
+        document.querySelectorAll('.model-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderFigures(this.dataset.model);
+            });
+        });
+    </script>
 </body>
 </html>
