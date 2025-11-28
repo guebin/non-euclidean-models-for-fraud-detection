@@ -29,52 +29,57 @@
         header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
         header p { opacity: 0.9; font-size: 1rem; }
         .container { max-width: 1400px; margin: 0 auto; padding: 2rem 3rem; text-align: left; }
-        .info-box {
-            background: var(--card-bg);
-            border-left: 4px solid var(--secondary-color);
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        /* Main Tab Styles */
+        .main-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+            border-bottom: 3px solid var(--primary-color);
         }
-        .info-box h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-        .table-section {
+        .main-tab {
+            padding: 1rem 2rem;
+            border: none;
+            background: #e9ecef;
+            color: var(--text-color);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            border-radius: 8px 8px 0 0;
+            margin-right: 4px;
+        }
+        .main-tab:hover {
+            background: #d0d4d8;
+        }
+        .main-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .tab-content {
+            display: none;
             background: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 8px;
+            padding: 2rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .table-section h2 {
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-title {
             color: var(--primary-color);
             font-size: 1.3rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary-color);
         }
-        .table-section h3 {
+        .section-subtitle {
             color: var(--secondary-color);
             font-size: 1.1rem;
             margin: 1.5rem 0 1rem 0;
         }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem; }
-        th, td { padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); }
-        th { background-color: var(--primary-color); color: white; font-weight: 600; }
-        tr:nth-child(even) { background-color: #f8f9fa; }
-        tr:hover { background-color: #e9ecef; }
-        .method-cell { text-align: left; font-weight: 500; }
-        .graph-enhanced { background-color: #e8f4fd !important; }
-        .graph-enhanced:hover { background-color: #d0e8f9 !important; }
-        .highlight { color: var(--secondary-color); font-weight: 600; }
         .note { font-size: 0.85rem; color: #666; margin-top: 0.5rem; font-style: italic; }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--primary-color);
-            color: white;
-            margin-top: 2rem;
-        }
-        footer a { color: #a8d8ff; }
 
         /* Model selector styles */
         .model-selector {
@@ -128,30 +133,51 @@
             display: block;
         }
 
+        /* Table styles */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem; }
+        th, td { padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); }
+        th { background-color: var(--primary-color); color: white; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e9ecef; }
+        .method-cell { text-align: left; font-weight: 500; }
+        .graph-enhanced { background-color: #e8f4fd !important; }
+        .graph-enhanced:hover { background-color: #d0e8f9 !important; }
+        .highlight { color: var(--secondary-color); font-weight: 600; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 2rem;
+        }
+        footer a { color: #a8d8ff; }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             table { font-size: 0.75rem; }
             th, td { padding: 0.5rem 0.25rem; }
             .model-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            .main-tab { padding: 0.75rem 1rem; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Non-Euclidean Models for Fraud Detection</h1>
-        <p>Supplementary Materials - Performance Metrics Tables</p>
+        <p>Supplementary Materials</p>
     </header>
     <div class="container">
-        <div class="info-box">
-            <h3>About This Page</h3>
-            <p>This page contains supplementary materials for the paper "Non-Euclidean Models for Fraud Detection".
-               Select a model type to view prediction probability distributions across different fraud ratios.
-               Methods with subscript <span class="highlight">G</span> indicate graph-enhanced versions using GCN embeddings.</p>
+        <!-- Main Tabs -->
+        <div class="main-tabs">
+            <button class="main-tab active" data-tab="figures">Figures</button>
+            <button class="main-tab" data-tab="tables">Tables</button>
         </div>
 
-        <div class="table-section">
-            <h2>Prediction Probability Distributions</h2>
-            <p class="note">Comparison of predicted fraud probabilities for actual fraud cases (y=1) across different undersampling ratios. Top row: histograms; bottom row: CDFs.</p>
+        <!-- Figures Tab -->
+        <div class="tab-content active" id="figures-tab">
+            <h2 class="section-title">Prediction Probability Distributions</h2>
+            <p class="note">Comparison of predicted fraud probabilities for actual fraud cases (y=1) across different undersampling ratios. Top row: histograms; bottom row: CDFs. Methods with subscript <span class="highlight">G</span> indicate graph-enhanced versions using GCN embeddings.</p>
 
             <p style="margin-top: 1rem; font-weight: 600;">Select Model Type:</p>
             <div class="model-selector">
@@ -168,11 +194,12 @@
             </div>
         </div>
 
-        <div class="table-section">
-            <h2>A1. Undersampling Experiments</h2>
-            <p class="note">We evaluated the robustness of our proposed method across various undersampling ratios while keeping the test set unchanged.</p>
+        <!-- Tables Tab -->
+        <div class="tab-content" id="tables-tab">
+            <h2 class="section-title">A1. Undersampling Experiments</h2>
+            <p class="note">We evaluated the robustness of our proposed method across various undersampling ratios while keeping the test set unchanged. Methods with subscript <span class="highlight">G</span> indicate graph-enhanced versions using GCN embeddings. Highlighted rows show graph-enhanced models.</p>
 
-            <h3>Table A1.1: Performance Metrics (Fraud Ratio: 5%)</h3>
+            <h3 class="section-subtitle">Table A1.1: Performance Metrics (Fraud Ratio: 5%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -193,7 +220,7 @@
                 </tbody>
             </table>
 
-            <h3>Table A1.2: Performance Metrics (Fraud Ratio: 10%)</h3>
+            <h3 class="section-subtitle">Table A1.2: Performance Metrics (Fraud Ratio: 10%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -214,7 +241,7 @@
                 </tbody>
             </table>
 
-            <h3>Table A1.3: Performance Metrics (Fraud Ratio: 20%)</h3>
+            <h3 class="section-subtitle">Table A1.3: Performance Metrics (Fraud Ratio: 20%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -235,7 +262,7 @@
                 </tbody>
             </table>
 
-            <h3>Table A1.4: Performance Metrics (Fraud Ratio: 30%)</h3>
+            <h3 class="section-subtitle">Table A1.4: Performance Metrics (Fraud Ratio: 30%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -256,7 +283,7 @@
                 </tbody>
             </table>
 
-            <h3>Table A1.5: Performance Metrics (Fraud Ratio: 40%)</h3>
+            <h3 class="section-subtitle">Table A1.5: Performance Metrics (Fraud Ratio: 40%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -277,7 +304,7 @@
                 </tbody>
             </table>
 
-            <h3>Table A1.6: Performance Metrics (Fraud Ratio: 50%)</h3>
+            <h3 class="section-subtitle">Table A1.6: Performance Metrics (Fraud Ratio: 50%)</h3>
             <table>
                 <thead><tr><th>Method</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>AUC</th></tr></thead>
                 <tbody>
@@ -298,7 +325,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
     <footer>
         <p>Supplementary Materials for "Non-Euclidean Models for Fraud Detection"</p>
@@ -306,6 +332,17 @@
     </footer>
 
     <script>
+        // Main tab switching
+        document.querySelectorAll('.main-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab + '-tab').classList.add('active');
+            });
+        });
+
+        // Figure rendering
         const fraudRatios = [
             { label: 'Original Fraud Ratio (0.57%)', file: '0_57pct' },
             { label: 'Fraud Ratio: 5%', file: '5pct' },
@@ -317,7 +354,6 @@
         ];
 
         const modelNames = {
-            'ensemble': 'Ensemble (Best Quality)',
             'NN_TORCH': 'NeuralNet',
             'RF': 'RandomForest',
             'XT': 'ExtraTrees',
@@ -327,11 +363,7 @@
         };
 
         function getImagePath(model, ratio) {
-            if (model === 'ensemble') {
-                return `figures/fig_combined_${ratio}.png`;
-            } else {
-                return `figures/by_model/fig_${model}_${ratio}.png`;
-            }
+            return `figures/by_model/fig_${model}_${ratio}.png`;
         }
 
         function renderFigures(model) {
@@ -354,7 +386,7 @@
         // Initialize with NeuralNet model
         renderFigures('NN_TORCH');
 
-        // Add click handlers to model buttons
+        // Model button handlers
         document.querySelectorAll('.model-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
