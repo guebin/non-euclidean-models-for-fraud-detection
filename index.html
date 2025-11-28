@@ -155,8 +155,7 @@
 
             <p style="margin-top: 1rem; font-weight: 600;">Select Model Type:</p>
             <div class="model-selector">
-                <button class="model-btn active" data-model="ensemble">Ensemble (Best)</button>
-                <button class="model-btn" data-model="NN_TORCH">NeuralNet</button>
+                <button class="model-btn active" data-model="NN_TORCH">NeuralNet</button>
                 <button class="model-btn" data-model="RF">RandomForest</button>
                 <button class="model-btn" data-model="XT">ExtraTrees</button>
                 <button class="model-btn" data-model="GBM">LightGBM</button>
@@ -352,8 +351,8 @@
             });
         }
 
-        // Initialize with ensemble model
-        renderFigures('ensemble');
+        // Initialize with NeuralNet model
+        renderFigures('NN_TORCH');
 
         // Add click handlers to model buttons
         document.querySelectorAll('.model-btn').forEach(btn => {
